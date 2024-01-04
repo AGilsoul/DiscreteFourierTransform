@@ -30,7 +30,27 @@ namespace NumericalMethods
 
 		this->time = time;
 		this->samples = samples;
+	}
 
+	DiscreteSignal DiscreteSignal::operator+(const DiscreteSignal& signal)
+	{
+		if (this->numSamples != signal.numSamples || this->dt != signal.dt) throw new invalid_argument("Signals have different sampling frequency or different number of samples");
+
+		DiscreteSignal sumSignal(this->time, this->samples, this->dt, this->numSamples);
+		for (int i = 0; i < this->numSamples; i++)
+		{
+			sumSignal.samples[i] += signal.samples[i];
+		}
+		return sumSignal;
+	}
+
+	void DiscreteSignal::operator+=(const DiscreteSignal& signal)
+	{
+		if (this->numSamples != signal.numSamples || this->dt != signal.numSamples) throw new invalid_argument("Signals have different sampling frequency or different number of samples");
+		for (int i = 0; i < this->numSamples; i++)
+		{
+			this->samples[i] += signal.samples[i];
+		}
 	}
 
 	vector<double> getTime(double maxTime, int numSamples)

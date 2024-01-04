@@ -49,6 +49,9 @@ namespace NumericalMethods
 		double getSamplingFrequency() { return samplingFrequency; }
 		int getNumSamples() { return numSamples; }
 
+		DiscreteSignal operator+(const DiscreteSignal& signal);
+		void operator+=(const DiscreteSignal& signal);
+
 		friend ostream& operator<<(ostream& out, const DiscreteSignal& signal)
 		{
 			out << "time:    [" << signal.time[0];

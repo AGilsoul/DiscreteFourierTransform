@@ -13,9 +13,10 @@ using namespace NumericalMethods;
 int main()
 {
     std::cout << "Hello World!\n";
-    DiscreteSignal cosineSignal = getCosineSignal(1, 1, 1, 1000);
-    // cout << cosineSignal << endl;
-    FourierTransform transform(cosineSignal, 5);
+    DiscreteSignal c2Signal = getCosineSignal(1, 5, 1, 10000);
+    DiscreteSignal c1Signal = getCosineSignal(1, 1, 1, 10000);
+    auto sumSignal = c1Signal + c2Signal;
+    FourierTransform transform(sumSignal, 10);
     vector<ComplexNumber> res = transform.getFrequencySpectrum();
     printVector<ComplexNumber>(res);
 }
