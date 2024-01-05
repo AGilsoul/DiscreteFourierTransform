@@ -6,6 +6,9 @@
 #include "VectorOps.h"
 #include "FourierTransform.h"
 #include "ComplexNumber.h"
+#include <matplotlibcpp.h>
+
+namespace plt = matplotlibcpp;
 
 using namespace std;
 using namespace NumericalMethods;
@@ -19,6 +22,8 @@ int main()
     FourierTransform transform(sumSignal, 10);
     vector<ComplexNumber> res = transform.getFrequencySpectrum();
     printVector<ComplexNumber>(res);
+    plt::plot(sumSignal.getSamples());
+    plt::show();
 }
 
 
