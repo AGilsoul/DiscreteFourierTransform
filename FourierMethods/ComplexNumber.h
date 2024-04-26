@@ -9,6 +9,10 @@ using std::endl;
 
 namespace NumericalMethods
 {
+	/*
+	* ComplexNumber Class
+	*  - Stores a real and imaginary part
+	*/
 	class ComplexNumber
 	{
 	public:
