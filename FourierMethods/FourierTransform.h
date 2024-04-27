@@ -26,7 +26,7 @@ namespace NumericalMethods
 		/*
 		* Frequency Spectrum Getter
 		* Returns:
-		*  - frequencySpectrum: Calculated frequency spectrum from transform
+		*  - vector<NumericalMethods::ComplexNumber>: the calculated frequency spectrum
 		*/
 		vector<NumericalMethods::ComplexNumber> getFrequencySpectrum() { return frequencySpectrum; }
 
