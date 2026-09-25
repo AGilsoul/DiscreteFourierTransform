@@ -16,35 +16,40 @@ namespace NumericalMethods
 	class ComplexNumber
 	{
 	public:
+		/*
+		* ComplexNumber base constructor
+		*/
 		ComplexNumber() {}
-
+		/*
+		* ComplexNumber overloaded constructor
+		* Params:
+		*  - a: Real part
+		*  - b: Imaginary part
+		*/
 		ComplexNumber(double a, double b) : Re(a), Im(b) {}
-
-		/**
-		 * @brief Returns the modulus of the complex number
-		 * 
-		 * @return double 
-		 */
+		/*
+		* Returns modulus of the number
+		* Returns:
+		*  - double: calculated modulus (sqrt(a^2 + b^2))
+		*/
 		double getModulus();
-
-		/**
-		 * @brief Returns the phase of the complex number
-		 * 
-		 * @return double 
-		 */
+		/*
+		* Returns the phase of the number
+		* Returns:
+		*  - double: calculated phase (atan2(a, b))
+		*/
 		double getPhase();
-
-		/**
-		 * @brief Returns the real part of the complex number
-		 * 
-		 * @return double 
-		 */
+		/*
+		* Real part getter
+		* Returns:
+		*  - double: Real part
+		*/
 		double getRe() { return Re; }
-		/**
-		 * @brief Returns the imaginary part of the complex number
-		 * 
-		 * @return double 
-		 */
+		/*
+		* Imaginary part getter
+		* Returns:
+		*  - double: Imaginary part
+		*/
 		double getIm() { return Im; }
 
 		void operator+=(const ComplexNumber& z);

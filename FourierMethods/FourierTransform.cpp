@@ -11,7 +11,7 @@ namespace NumericalMethods
 {
 	FourierTransform::FourierTransform(DiscreteSignal& inputSignal, int maxFreq, int numTerms) : inputSignal(inputSignal), maxFreq(maxFreq), numTerms(numTerms)
 	{
-		// Make sure we are looking at valid frequencies
+		// Check that the max frequency is >= 1
 		if (maxFreq < 1) throw new invalid_argument("Max frequency must be >= 1");
 		// Get the number of data points in the signal
 		double sampFreq = inputSignal.getNumSamples();
@@ -19,8 +19,9 @@ namespace NumericalMethods
 		// Get all data points from the signal
 		vector<double> samples = inputSignal.getSamples();
 
-		// Determine all of the frequencies to consider
-		// The number of samples needs to be at least double the max frequency we are considering
+		// Make sure that the frequency spectrum vector size is
+		// - sampling frequency + 1 if sampling frequency is less than or equal to double the max frequency
+		// - max frequency + 1 if sampling frequency is greater than double the max frequency
 		if (2.0 * maxFreq >= sampFreq)
 		{
 			frequencySpectrum = vector<ComplexNumber>(int(sampFreq) + 1.0);
@@ -30,28 +31,26 @@ namespace NumericalMethods
 			frequencySpectrum = vector<ComplexNumber>(maxFreq + 1.0);
 		}
 
-		// Transform on every frequency
+		// For every frequency in the spectrum
 		for (int frequency = 0; frequency < frequencySpectrum.size(); frequency++)
 		{
-			// Where w is the current frequency, and n is the number of samples
-			// b_n = -2pi * w / n
+			// b_n = -2*pi*frequency / sampling frequency
 			double b_n = -2.0 * M_PI * frequency / sampFreq;
-			cout << b_n << endl;
-			// For every sample, add its contribution to the current 
+			// for every sample
 			for (int sample = 0; sample < samples.size(); sample++)
 			{
-				// curb_n = b_n * sample index
+				// b_n *= sample value
 				double curB_n = b_n * sample;
-				// Real part is the sample value multiplied by cosine of curb_n
+				// real part from b_n
 				double Re = samples[sample] * cos(curB_n);
-				// Imaginary part is the sample value multiplied by sine of curb_n
+				// imaginary part from b_n
 				double Im = samples[sample] * sin(curB_n);
-				// Convert this to a complex number
+				// complex number from real and imaginary parts
 				ComplexNumber curFreq = ComplexNumber(Re, Im);
-				// Add this sample's contribution to the current frequncy
+				// update frequency spectrum
 				frequencySpectrum[frequency] += curFreq;
 			}
-			// Now multiply this frequency by 2/n
+			// Average value of frequency on spectrum
 			frequencySpectrum[frequency] *= (2.0 / samples.size());
 		}
 	}

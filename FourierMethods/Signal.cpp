@@ -17,9 +17,10 @@ namespace NumericalMethods
 		return amplitude * cos(2 * M_PI * frequency * t + phase);
 	}
 
-	DiscreteSignal::DiscreteSignal(vector<double> time, vector<double> samples, double dt, int numSamples) : dt(dt), numSamples(numSamples)
+	DiscreteSignal::DiscreteSignal(vector<double> time, vector<double> samples, double dt) : dt(dt)
 	{
-		if (numSamples <= 1) throw new invalid_argument("Number of samples must be greater than 1");
+		this->numSamples = samples.size();
+		if (this->numSamples <= 1) throw new invalid_argument("Number of samples must be greater than 1");
 		if (dt <= 0) throw new invalid_argument("dt must be a positive real number");
 		samplingFrequency = 1 / dt;
 		for (int i = 1; i < numSamples; i++)
@@ -30,7 +31,27 @@ namespace NumericalMethods
 
 		this->time = time;
 		this->samples = samples;
+	}
 
+	DiscreteSignal DiscreteSignal::operator+(const DiscreteSignal& signal)
+	{
+		if (this->numSamples != signal.numSamples || this->dt != signal.dt) throw new invalid_argument("Signals have different sampling frequency or different number of samples");
+
+		DiscreteSignal sumSignal(this->time, this->samples, this->dt);
+		for (int i = 0; i < this->numSamples; i++)
+		{
+			sumSignal.samples[i] += signal.samples[i];
+		}
+		return sumSignal;
+	}
+
+	void DiscreteSignal::operator+=(const DiscreteSignal& signal)
+	{
+		if (this->numSamples != signal.numSamples || this->dt != signal.numSamples) throw new invalid_argument("Signals have different sampling frequency or different number of samples");
+		for (int i = 0; i < this->numSamples; i++)
+		{
+			this->samples[i] += signal.samples[i];
+		}
 	}
 
 	vector<double> getTime(double maxTime, int numSamples)
@@ -68,7 +89,7 @@ namespace NumericalMethods
 			}
 		}
 
-		return DiscreteSignal(time, samples, time[1] - time[0], numSamples);
+		return DiscreteSignal(time, samples, time[1] - time[0]);
 	}
 
 	DiscreteSignal getCosineSignal(double amplitude, double frequency, double maxTime, int numSamples)
@@ -82,7 +103,7 @@ namespace NumericalMethods
 			samples[t] += curWave(time[t]);
 		}
 
-		return DiscreteSignal(time, samples, time[1] - time[0], numSamples);
+		return DiscreteSignal(time, samples, time[1] - time[0]);
 	}
 
 	DiscreteSignal getSineSignal(double amplitude, double frequency, double maxTime, int numSamples)
@@ -96,7 +117,7 @@ namespace NumericalMethods
 			samples[t] += curWave(time[t]);
 		}
 
-		return DiscreteSignal(time, samples, time[1] - time[0], numSamples);
+		return DiscreteSignal(time, samples, time[1] - time[0]);
 	}
 
 }
