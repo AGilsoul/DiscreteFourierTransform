@@ -9,6 +9,10 @@ using namespace std;
 
 namespace NumericalMethods
 {
+	/**
+	 * @brief Represents a continuous signal
+	 * 
+	 */
 	class Signal
 	{
 	public:
@@ -37,7 +41,10 @@ namespace NumericalMethods
 		double amplitude = 0, frequency = 0, phase = 0;
 	};
 
-
+	/**
+	 * @brief Represents a discrete signal, consisting of samples
+	 * 
+	 */
 	class DiscreteSignal
 	{
 	public:

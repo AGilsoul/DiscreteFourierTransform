@@ -9,6 +9,10 @@ using std::endl;
 
 namespace NumericalMethods
 {
+	/**
+	 * @brief Complex number class, contains a real and imaginary part
+	 * 
+	 */
 	class ComplexNumber
 	{
 	public:
@@ -16,11 +20,31 @@ namespace NumericalMethods
 
 		ComplexNumber(double a, double b) : Re(a), Im(b) {}
 
+		/**
+		 * @brief Returns the modulus of the complex number
+		 * 
+		 * @return double 
+		 */
 		double getModulus();
 
+		/**
+		 * @brief Returns the phase of the complex number
+		 * 
+		 * @return double 
+		 */
 		double getPhase();
 
+		/**
+		 * @brief Returns the real part of the complex number
+		 * 
+		 * @return double 
+		 */
 		double getRe() { return Re; }
+		/**
+		 * @brief Returns the imaginary part of the complex number
+		 * 
+		 * @return double 
+		 */
 		double getIm() { return Im; }
 
 		void operator+=(const ComplexNumber& z);
