@@ -13,7 +13,10 @@ namespace NumericalMethods
 	{
 		// Check that the max frequency is >= 1
 		if (maxFreq < 1) throw new invalid_argument("Max frequency must be >= 1");
+		// Get the number of data points in the signal
 		double sampFreq = inputSignal.getNumSamples();
+
+		// Get all data points from the signal
 		vector<double> samples = inputSignal.getSamples();
 
 		// Make sure that the frequency spectrum vector size is
